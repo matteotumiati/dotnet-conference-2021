@@ -7,10 +7,10 @@ static class CodeAnalysisMetricDataExtensions
     internal static string ToCyclomaticComplexityEmoji(this CodeAnalysisMetricData metric) =>
         metric.CyclomaticComplexity switch
         {
-            >= 0 and <= 7 => ":heavy_check_mark:",
-            8 or 9 => ":warning:",
-            10 or 11 => ":radioactive:",
-            12 or 14 => ":x:",
-            _ => ":feelsgood:"
+            >= 0 and <= 7 => "✔️",
+            8 or 9 => "👀",
+            10 or 11 => "⚠️",
+            12 or 14 => "❌",
+            _ => "🔥"
         };
 }
