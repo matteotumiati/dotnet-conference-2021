@@ -26,6 +26,6 @@ jobs:
         echo "Complexity (avg): $complexity"
         echo "Maintainability index (avg): $maintainabilityIndex"
       shell: bash
-      with:
+      env:
         complexity: '${{ steps.dotnet-code-metrics.outputs.avg-complexity }}'
         maintainabilityIndex: '${{ steps.dotnet-code-metrics.avg-maintainability-index }}'
