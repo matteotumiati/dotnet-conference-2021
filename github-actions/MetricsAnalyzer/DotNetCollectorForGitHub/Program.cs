@@ -39,10 +39,10 @@ static async Task StartAnalysisAsync(InputParameters inputs, IHost host)
 
         foreach ((string path, CodeAnalysisMetricData metric) in metrics)
         {
-            Console.Write($"Analyzed project: ", ConsoleColor.Green); Console.WriteLine(project);
-            Console.Write($"LOC: ", ConsoleColor.Green); Console.WriteLine(metric.SourceLines);
-            Console.Write($"Cyclomatic complexity: ", ConsoleColor.Green); Console.WriteLine($"{metric.CyclomaticComplexity} ({metric.ToCyclomaticComplexityEmoji()})");
-            Console.Write($"Maintainability index: ", ConsoleColor.Green); Console.WriteLine(metric.MaintainabilityIndex);
+            Console.WriteLine($"Analyzed project: {project}");
+            Console.WriteLine($"LOC: {metric.SourceLines}");
+            Console.WriteLine($"Cyclomatic complexity: {metric.CyclomaticComplexity} ({metric.ToCyclomaticComplexityEmoji()})");
+            Console.WriteLine($"Maintainability index: {metric.MaintainabilityIndex}");
             Console.WriteLine();
 
             average.Add(new KeyValuePair<int, int>(metric.CyclomaticComplexity, metric.MaintainabilityIndex));
