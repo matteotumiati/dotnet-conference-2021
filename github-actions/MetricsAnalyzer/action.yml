@@ -1,0 +1,39 @@
+name: '.NET code metric analyzer'
+description: 'A Github action that calculate base metrics on the codebase like cylcomatic complexity, maintainability index, etc.'
+branding:
+  icon: sliders
+  color: orange
+inputs:
+  owner:
+    description: 'The owner of the repo. Assign from github.repository_owner. Example, "dotnet".'
+    required: true
+  name:
+    description: 'The repository name. Example, "samples".'
+    required: true
+  branch:
+    description: 'The branch name. Assign from github.ref. Example, "refs/heads/main".'
+    required: true
+  dir:
+    description: 'The root directory to work from. Example, "path/to/code".'
+    required: true
+  workspace:
+    description: 'The workspace directory.'
+    required: false
+    default: '/github/workspace'
+outputs:
+  avg-complexity:
+    description: 'The average number representing the cyclomatic complexity.'
+  avg-maintainability-index:
+    description: 'The average number representing the maintainability index.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - '-o'
+  - ${{ inputs.owner }}
+  - '-n'
+  - ${{ inputs.name }}
+  - '-b'
+  - ${{ inputs.branch }}
+  - '-d'
+  - ${{ inputs.dir }}

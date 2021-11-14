@@ -1,0 +1,22 @@
+name: '.NET code metrics'
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: .NET code metrics
+      id: dotnet-code-metrics
+      uses: matteotumiati/dotnet-conference-2021/github-actions/MetricsAnalyzer@main
+      with:
+        owner: ${{ github.repository_owner }}
+        name: ${{ github.repository }}
+        branch: ${{ github.ref }}
+        dir: ${{ './github-actions/MetricsAnalyzer' }}
