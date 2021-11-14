@@ -23,7 +23,7 @@ static TService Get<TService>(IHost host) where TService : notnull =>
 
 static async Task StartAnalysisAsync(InputParameters inputs, IHost host)
 {
-    Console.WriteLine($"Analyzing source from repo {inputs.Name} ({inputs.Owner}) in branch {inputs.Branch}.");
+    Console.WriteLine($"Analyzing source from repo {inputs.Name} ({inputs.Owner}) in branch {inputs.Branch}.", ConsoleColor.Green);
 
     Matcher matcher = new();
     matcher.AddIncludePatterns(new[] { "**/*.csproj" });
@@ -39,10 +39,10 @@ static async Task StartAnalysisAsync(InputParameters inputs, IHost host)
 
         foreach ((string path, CodeAnalysisMetricData metric) in metrics)
         {
-            Console.WriteLine($"Analyzed project: {project}");
-            Console.WriteLine($"LOC: {metric.SourceLines}");
-            Console.WriteLine($"Cyclomatic Complexity: {metric.CyclomaticComplexity} ({metric.ToCyclomaticComplexityEmoji()})");
-            Console.WriteLine($"Maintainability Index: {metric.MaintainabilityIndex}");
+            Console.Write($"Analyzed project: ", ConsoleColor.Green); Console.WriteLine(project);
+            Console.Write($"LOC: ", ConsoleColor.Green); Console.WriteLine(metric.SourceLines);
+            Console.Write($"Cyclomatic complexity: ", ConsoleColor.Green); Console.WriteLine($"{metric.CyclomaticComplexity} ({metric.ToCyclomaticComplexityEmoji()})");
+            Console.Write($"Maintainability index: ", ConsoleColor.Green); Console.WriteLine(metric.MaintainabilityIndex);
             Console.WriteLine();
 
             average.Add(new KeyValuePair<int, int>(metric.CyclomaticComplexity, metric.MaintainabilityIndex));

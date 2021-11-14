@@ -6,13 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  analyze:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: .NET code metrics
+    - name: Analyze code metrics
       id: dotnet-code-metrics
       uses: matteotumiati/dotnet-conference-2021/github-actions/MetricsAnalyzer@main
       with:
@@ -20,3 +20,12 @@ jobs:
         name: ${{ github.repository }}
         branch: ${{ github.ref }}
         dir: ${{ './github-actions/MetricsAnalyzer' }}
+
+    - name: Average data
+      run: |
+        echo "Complexity (avg): $complexity"
+        echo "Maintainability index (avg): $maintainabilityIndex"
+      shell: bash
+      with:
+        complexity: '${{ steps.dotnet-code-metrics.outputs.avg-complexity }}'
+        maintainabilityIndex: '${{ steps.dotnet-code-metrics.avg-maintainability-index }}'
